@@ -1,3 +1,5 @@
+import abc
+
 def print_result(func):
     def modified_fun(*args, **kwargs):
         print func(*args, **kwargs)
@@ -25,6 +27,23 @@ class Cat:
     def shout(self):
         print 'Meow'
 
+class Pizza(object):
+    radius = 42
+    @classmethod
+    def get_radius(cls):
+        return cls.radius
+
+class BasePizza(object):
+    __metaclass__  = abc.ABCMeta
+
+    @abc.abstractmethod
+    def get_radius(self):
+         """Method that should do something."""
+
+class ChildPizza(BasePizza):
+    def get_radius(self):
+        print "childPizza"
+
 
 if __name__ == '__main__':
     test_var_args(1, "two", 3)
@@ -33,3 +52,8 @@ if __name__ == '__main__':
     my_cat.shout()
 
     add(1,2,3,4)
+
+    print Pizza.get_radius()
+
+    bp = ChildPizza()
+    bp.get_radius()
